@@ -52,7 +52,7 @@ export default {};
 @import "../assets/scss/main.scss";
 .currency-exchange-form {
   width: 55%;
-  height: 400px;
+  height: auto;
   padding: 2rem;
   background-color: $white-color;
   border-radius: 5px;
@@ -61,7 +61,7 @@ export default {};
   .input-amount {
     padding: 10px;
     border: 1px;
-    border: 1px solid $secondary-color;
+    border: 1px solid $primary-color;
     border-radius: 5px;
   }
 

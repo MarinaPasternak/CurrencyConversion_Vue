@@ -6,7 +6,7 @@ body {
 }
 
 h1 {
-  background: linear-gradient(to right, $primary-color, $purple-color);
+  background: linear-gradient(to right, $purple-color, $primary-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
