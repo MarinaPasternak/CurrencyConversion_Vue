@@ -1,32 +1,27 @@
-const { VueLoaderPlugin } = require('vue-loader');
-const path = require('path');
+const htmlWebpackPlugin = require("html-webpack-plugin");
+const { VueLoaderPlugin } = require("vue-loader");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require("path");
 
 module.exports = {
-  entry: './src/main.ts',
+  entry: {
+    main: "./src/main.js",
+  },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "dist"),
   },
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-      },
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
+          loader: "babel-loader",
         },
+      },
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
       },
       {
         test: /\.scss$/,
@@ -39,18 +34,19 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new VueLoaderPlugin(),
+    new htmlWebpackPlugin({
+      template: path.resolve(__dirname, "public", "index.html"),
+    }),
   ],
   resolve: {
-    extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
-      vue$: 'vue/dist/vue.esm.js',
-      '@': path.resolve(__dirname, 'src/'),
+      vue$: "vue/dist/vue.runtime.esm.js",
     },
+    extensions: ["*", ".js", ".vue", ".json"],
   },
   devServer: {
-    static: 'dist',
-    port: 8080,
-    hot: true,
+    historyApiFallback: true,
   },
 };

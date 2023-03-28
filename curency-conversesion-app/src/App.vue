@@ -1,17 +1,3 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "App",
-  data() {
-    return {
-      greeting: "Welcome to my currency exchange app!",
-      currencies: ["USD", "EUR", "UAH", "GBP", "BTC", "ETH", "BNB", "XRP"],
-    };
-  },
-});
-</script>
-
 <template>
   <div id="app">
     <h1>{{ greeting }}</h1>
@@ -21,6 +7,17 @@ export default defineComponent({
     </ul>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      greeting: "Welcome to my currency exchange app!",
+      currencies: ["USD", "EUR", "UAH", "GBP", "BTC", "ETH", "BNB", "XRP"],
+    };
+  },
+};
+</script>
 
 <style scoped lang="scss">
 #app {
