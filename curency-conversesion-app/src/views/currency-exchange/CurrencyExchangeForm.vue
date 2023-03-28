@@ -2,15 +2,11 @@
   <div class="container mt-3">
     <div class="currency-exchange-form">
       <h1 class="mb-2">Currency Converter</h1>
-      <div class="column-container mb-2">
-        <label class="mb-05">Amount To Exchange</label>
-        <input type="text" class="input-amount" />
-      </div>
-      <div class="container">
+      <div class="container mb-2">
         <div class="column-container mr-3">
           <label class="mb-05">From</label>
           <div class="select-container">
-            <input type="text" class="input-value" />
+            <input type="text" class="input-value" v-model="amountToConvert" />
             <select v-model="currencyBase">
               <option
                 v-for="(currency, index) in defaultCurrensies"
@@ -24,7 +20,12 @@
         <div class="column-container">
           <label class="mb-05">To</label>
           <div class="select-container">
-            <input type="text" class="input-value" />
+            <input
+              type="text"
+              class="input-value"
+              :value="convertedAmount"
+              disabled
+            />
             <select v-model="currencyToConvert">
               <option
                 v-for="(currency, index) in defaultCurrensies"
@@ -36,8 +37,12 @@
           </div>
         </div>
       </div>
-      <h3 class="mt-3">1,0000 USD = 73 INR</h3>
-      <button class="primary-button" @click="convertAmount">Exchange</button>
+      <template v-if="isRatioCoefficientLoading">
+        <p>Loading...</p>
+      </template>
+      <template v-else-if="errorMessage">
+        {{ errorMessage }}
+      </template>
     </div>
   </div>
 </template>
@@ -59,6 +64,7 @@ export default {
       ],
       currencyBase: "USD",
       currencyToConvert: "BTC",
+      amountToConvert: 0,
     };
   },
   computed: {
@@ -69,19 +75,32 @@ export default {
         state.ratioCoefficient.ratioCoefficientLoading,
       errorMessage: (state) => state.ratioCoefficient.ratioCoefficientError,
     }),
-  },
-  methods: {
-    ...mapActions(["fetchRatioCoefficient"]),
-    convertAmount() {
+    convertedAmount() {
       const baseValue = this.currencyBase.toLowerCase();
       const convertToValue = this.currencyToConvert.toLowerCase();
 
-      this.fetchRatioCoefficient({
-        base: baseValue,
-        convertToCurrency: convertToValue,
-      });
-      console.log(this.ratioCoefficientForConverting);
+      if (this.isFormValid > 0) {
+        this.fetchRatioCoefficient({
+          base: baseValue,
+          convertToCurrency: convertToValue,
+        });
+
+        if (this.ratioCoefficientForConverting) {
+          return this.ratioCoefficientForConverting * this.amountToConvert;
+        }
+      }
+
+      return "";
     },
+    isFormValid() {
+      if (this.amountToConvert > 0 && this.amountToConvert < 10000) {
+        return true;
+      }
+      return false;
+    },
+  },
+  methods: {
+    ...mapActions(["fetchRatioCoefficient"]),
   },
 };
 </script>
