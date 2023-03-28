@@ -63,24 +63,24 @@ export default {
   },
   computed: {
     ...mapState({
-      currencyValueByBase: (state) => state.currencyValue.currencyValue,
-      areCurrencyValueLoading: (state) =>
-        state.currencyValue.currencyValueLoading,
-      errorMessage: (state) => state.currencyValue.currencyValueError,
+      ratioCoefficientForConverting: (state) =>
+        state.ratioCoefficient.ratioCoefficient,
+      isRatioCoefficientLoading: (state) =>
+        state.ratioCoefficient.ratioCoefficientLoading,
+      errorMessage: (state) => state.ratioCoefficient.ratioCoefficientError,
     }),
   },
   methods: {
-    ...mapActions(["fetchCurrencyValueByBase"]),
+    ...mapActions(["fetchRatioCoefficient"]),
     convertAmount() {
       const baseValue = this.currencyBase.toLowerCase();
       const convertToValue = this.currencyToConvert.toLowerCase();
 
-      this.fetchCurrencyValueByBase({
+      this.fetchRatioCoefficient({
         base: baseValue,
         convertToCurrency: convertToValue,
       });
-
-      console.log(this.currencyValueByBase);
+      console.log(this.ratioCoefficientForConverting);
     },
   },
 };

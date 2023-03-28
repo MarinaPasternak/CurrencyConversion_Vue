@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import currencyValue from './modules/currency-value'
+import ratioCoefficient from './modules/ratio-coefficient'
 import currenciesNames from './modules/currencies'
 
 Vue.use(Vuex)
@@ -8,6 +8,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
         currenciesNames,
-        currencyValue
+        ratioCoefficient
     }
 })
