@@ -41,7 +41,8 @@
         <p>Loading...</p>
       </template>
       <template v-else-if="errorMessage">
-        {{ errorMessage }}
+        <h4>Oops, somthing went wrong</h4>
+        <p>{{ errorMessage }}</p>
       </template>
     </div>
   </div>
@@ -87,8 +88,8 @@ export default {
 
         if (this.ratioCoefficientForConverting) {
           return (
-            this.ratioCoefficientForConverting * this.amountToConvert.toFixed(2)
-          );
+            this.ratioCoefficientForConverting * this.amountToConvert
+          ).toFixed(2);
         }
       }
 
