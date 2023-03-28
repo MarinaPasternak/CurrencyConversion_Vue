@@ -86,7 +86,9 @@ export default {
         });
 
         if (this.ratioCoefficientForConverting) {
-          return this.ratioCoefficientForConverting * this.amountToConvert;
+          return (
+            this.ratioCoefficientForConverting * this.amountToConvert.toFixed(2)
+          );
         }
       }
 

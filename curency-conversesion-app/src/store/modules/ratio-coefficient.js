@@ -19,7 +19,7 @@ export default {
         async fetchRatioCoefficient({ commit }, { base, convertToCurrency }) {
             commit('setRatioCoefficientLoading', true);
             
-            await fetch(`https://cdn.jsdeivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${base}.json`)
+            await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${base}.json`)
             .then(response => response.json())
             .then(data => {
                 commit('setRatioCoefficientLoading', false);
