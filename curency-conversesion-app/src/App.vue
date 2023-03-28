@@ -5,11 +5,21 @@
     <ul>
       <li v-for="currency in currencies" :key="currency">{{ currency }}</li>
     </ul>
+    <div>
+      <currency-exchange-form></currency-exchange-form>
+      <current-exchange-rate></current-exchange-rate>
+    </div>
   </div>
 </template>
 
 <script>
+import CurrencyExchangeForm from "./views/CurrencyExchangeForm.vue";
+import CurrentExchangeRate from "./views/CurrentExchangeRate.vue";
 export default {
+  components: {
+    CurrencyExchangeForm,
+    CurrentExchangeRate,
+  },
   data() {
     return {
       greeting: "Welcome to my currency exchange app!",
