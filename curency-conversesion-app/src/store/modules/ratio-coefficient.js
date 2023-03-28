@@ -1,12 +1,16 @@
 export default {
     state: {
         ratioCoefficient: null,
+        ratioCoefficientUSD: null,
         ratioCoefficientError: null,
         ratioCoefficientLoading: false,
     },
     mutations: {
         setRatioCoefficient(state, value) {
             state.ratioCoefficient = value;
+        },
+        setRatioCoefficientUSD(state, value) {
+            state.ratioCoefficientUSD = value;
         },
         setRatioCoefficientLoading(state, loading) {
             state.ratioCoefficientLoading = loading;
@@ -24,6 +28,7 @@ export default {
             .then(data => {
                 commit('setRatioCoefficientLoading', false);
                 commit('setRatioCoefficient', data[base][convertToCurrency]);
+                commit('setRatioCoefficientUSD', data[base].usd);
             })
             .catch(error => {
                 commit('setRatioCoefficientError', error.message);

@@ -66,12 +66,15 @@ export default {
       currencyBase: "USD",
       currencyToConvert: "BTC",
       amountToConvert: 0,
+      limitInUSD: 10000,
     };
   },
   computed: {
     ...mapState({
       ratioCoefficientForConverting: (state) =>
         state.ratioCoefficient.ratioCoefficient,
+      ratioCoefficientUSD: (state) =>
+        state.ratioCoefficient.ratioCoefficientUSD,
       isRatioCoefficientLoading: (state) =>
         state.ratioCoefficient.ratioCoefficientLoading,
       errorMessage: (state) => state.ratioCoefficient.ratioCoefficientError,
@@ -80,13 +83,16 @@ export default {
       const baseValue = this.currencyBase.toLowerCase();
       const convertToValue = this.currencyToConvert.toLowerCase();
 
-      if (this.isFormValid > 0) {
+      if (this.amountToConvert > 0) {
         this.fetchRatioCoefficient({
           base: baseValue,
           convertToCurrency: convertToValue,
         });
 
-        if (this.ratioCoefficientForConverting) {
+        if (
+          this.ratioCoefficientForConverting &&
+          this.isAmountToConvertLessThenLimit
+        ) {
           return (
             this.ratioCoefficientForConverting * this.amountToConvert
           ).toFixed(2);
@@ -95,8 +101,10 @@ export default {
 
       return "";
     },
-    isFormValid() {
-      if (this.amountToConvert > 0 && this.amountToConvert < 10000) {
+    isAmountToConvertLessThenLimit() {
+      const valueonvertedUSD = this.amountToConvert * this.ratioCoefficientUSD;
+
+      if (valueonvertedUSD <= this.limitInUSD) {
         return true;
       }
       return false;
