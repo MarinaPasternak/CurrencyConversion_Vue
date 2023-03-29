@@ -72,7 +72,7 @@ export default {
       ],
       currencyBase: "USD",
       currencyToConvert: "BTC",
-      amountToConvert: "",
+      amountToConvert: "1.00",
       limitInUSD: 10000,
       validationMessage: "",
     };
