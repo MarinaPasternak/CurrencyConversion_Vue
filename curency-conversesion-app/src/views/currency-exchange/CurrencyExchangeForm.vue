@@ -2,47 +2,54 @@
   <div class="container mt-3">
     <div class="currency-exchange-form">
       <h1 class="mb-2">Currency Converter</h1>
-      <div class="container mb-2">
-        <div class="column-container mr-3">
-          <label class="mb-05">From</label>
-          <div class="select-container">
-            <input type="text" class="input-value" v-model="amountToConvert" />
-            <select v-model="currencyBase">
-              <option
-                v-for="(currency, index) in defaultCurrensies"
-                :key="currency + index"
-              >
-                {{ currency }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="column-container">
-          <label class="mb-05">To</label>
-          <div class="select-container">
-            <input
-              type="text"
-              class="input-value"
-              :value="convertedAmount"
-              disabled
-            />
-            <select v-model="currencyToConvert">
-              <option
-                v-for="(currency, index) in defaultCurrensies"
-                :key="currency + index + '-'"
-              >
-                {{ currency }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <template v-if="isRatioCoefficientLoading">
-        <p>Loading...</p>
-      </template>
-      <template v-else-if="errorMessage">
+      <template v-if="errorMessage">
         <h4>Oops, somthing went wrong</h4>
         <p>{{ errorMessage }}</p>
+      </template>
+      <template v-else>
+        <div class="container mb-2">
+          <div class="column-container mr-3">
+            <label class="mb-05">From</label>
+            <div class="select-container">
+              <input
+                type="text"
+                class="input-value"
+                v-model="amountToConvert"
+              />
+              <select v-model="currencyBase">
+                <option
+                  v-for="(currency, index) in defaultCurrensies"
+                  :key="currency + index"
+                >
+                  {{ currency }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="column-container">
+            <label class="mb-05">To</label>
+            <div class="select-container">
+              <input
+                type="text"
+                class="input-value"
+                :value="convertedAmount"
+                disabled
+              />
+              <select v-model="currencyToConvert">
+                <option
+                  v-for="(currency, index) in defaultCurrensies"
+                  :key="currency + index + '-'"
+                >
+                  {{ currency }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <h3 class="validation-error-message">{{ validationMessage }}</h3>
+        <template v-if="isRatioCoefficientLoading">
+          <p>Loading...</p>
+        </template>
       </template>
     </div>
   </div>
@@ -65,8 +72,9 @@ export default {
       ],
       currencyBase: "USD",
       currencyToConvert: "BTC",
-      amountToConvert: 0,
+      amountToConvert: "",
       limitInUSD: 10000,
+      validationMessage: "",
     };
   },
   computed: {
@@ -83,7 +91,7 @@ export default {
       const baseValue = this.currencyBase.toLowerCase();
       const convertToValue = this.currencyToConvert.toLowerCase();
 
-      if (this.amountToConvert > 0) {
+      if (this.amountToConvert.length > 0) {
         this.fetchRatioCoefficient({
           base: baseValue,
           convertToCurrency: convertToValue,
@@ -93,13 +101,19 @@ export default {
           this.ratioCoefficientForConverting &&
           this.isAmountToConvertLessThenLimit
         ) {
+          this.validationMessage = "";
+
           return (
             this.ratioCoefficientForConverting * this.amountToConvert
           ).toFixed(2);
+        } else {
+          this.validationMessage = `Sorry, you have riched limit in ${this.limitInUSD} USD`;
+          return "";
         }
+      } else {
+        this.validationMessage = "Amout to convert can't be empty";
+        return "";
       }
-
-      return "";
     },
     isAmountToConvertLessThenLimit() {
       const valueonvertedUSD = this.amountToConvert * this.ratioCoefficientUSD;
@@ -124,6 +138,10 @@ export default {
   padding: 2rem;
   background-color: $white-color;
   border-radius: 5px;
+
+  .validation-error-message {
+    color: $error-color;
+  }
 
   .input-value,
   .input-amount {
