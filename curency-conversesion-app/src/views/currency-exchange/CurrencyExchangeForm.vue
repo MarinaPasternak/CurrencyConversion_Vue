@@ -1,15 +1,15 @@
 <template>
-  <div class="container mt-3">
+  <div class="container">
     <div class="currency-exchange-form">
-      <h1 class="mb-2">Currency Converter</h1>
+      <h1>Currency Converter</h1>
       <template v-if="errorMessage">
         <h4>Oops, somthing went wrong</h4>
         <p>{{ errorMessage }}</p>
       </template>
       <template v-else>
-        <div class="container mb-2">
-          <div class="column-container mr-3">
-            <label class="mb-05">From</label>
+        <div class="container">
+          <div class="column-container">
+            <label>From</label>
             <div class="select-container">
               <input
                 type="text"
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="column-container">
-            <label class="mb-05">To</label>
+            <label>To</label>
             <div class="select-container">
               <input
                 type="text"
@@ -132,12 +132,17 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/scss/main.scss";
+
 .currency-exchange-form {
-  width: 55%;
+  width: 40%;
   height: auto;
   padding: 2rem;
   background-color: $white-color;
   border-radius: 5px;
+
+  h2 {
+    margin-bottom: 2rem;
+  }
 
   .validation-error-message {
     color: $error-color;
@@ -156,7 +161,12 @@ export default {
   }
 
   .container {
-    justify-content: flex-start;
+    margin-bottom: 2rem;
+    justify-content: space-between;
+
+    .column-container:first-child {
+      margin-right: 3rem;
+    }
   }
 
   .primary-button {
@@ -177,7 +187,19 @@ export default {
   }
 
   label {
+    margin-bottom: 0.5rem;
     font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 1250px) {
+  .currency-exchange-form .container {
+    flex-direction: column;
+
+    .column-container:first-child {
+      margin: 0;
+      margin-bottom: 2rem;
+    }
   }
 }
 </style>
