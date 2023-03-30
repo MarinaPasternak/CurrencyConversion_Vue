@@ -118,19 +118,6 @@ export default {
       font-weight: 500;
     }
 
-    .primary-button[disabled] {
-      color: $disabled-color;
-      border-color: $disabled-color;
-      background-color: $secondary-color;
-      cursor: not-allowed;
-    }
-
-    .primary-button[disabled]:hover {
-      color: $disabled-color;
-      border-color: $disabled-color;
-      background-color: $secondary-color;
-    }
-
     .primary-button:hover {
       background-color: $white-color;
       color: $purple-color;

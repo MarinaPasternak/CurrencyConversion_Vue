@@ -10,7 +10,13 @@
       <template v-else>
         <div class="container-header">
           <h1>{{ currencyBase }}</h1>
-          <button class="primary-button">Update rate</button>
+          <button
+            class="primary-button"
+            @click="updateRateList()"
+            :disabled="!isItPossibleToUpdate"
+          >
+            Update rate
+          </button>
         </div>
         <div class="select-group">
           <label>Choose curency:</label>
@@ -64,6 +70,7 @@ export default {
       defaultCurrencies: ["usd", "eur", "uah", "btc", "eth"],
       currencyBase: "usd",
       showPopup: false,
+      isItPossibleToUpdate: true,
     };
   },
   computed: {
@@ -83,10 +90,21 @@ export default {
           JSON.stringify(this.defaultCurrencies)
         );
       } else {
-        this.defaultCurrencies = JSON.parse(
-          localStorage.getItem("defaultCurrencies")
-        );
+        this.getCurrencyRateFromLocalStorage();
       }
+    },
+    getCurrencyRateFromLocalStorage() {
+      this.defaultCurrencies = JSON.parse(
+        localStorage.getItem("defaultCurrencies")
+      );
+    },
+    updateRateList() {
+      this.getCurrencyRateFromLocalStorage();
+      this.isItPossibleToUpdate = false;
+
+      setTimeout(() => {
+        this.isItPossibleToUpdate = true;
+      }, 5000);
     },
   },
   mounted() {
@@ -102,6 +120,12 @@ export default {
       this.$store.dispatch("fetchRateCurrencies", {
         base: newBase,
         currenciesName: this.defaultCurrencies,
+      });
+    },
+    defaultCurrencies: function (newDefaultCurrencies, oldDefaultCurrencies) {
+      this.$store.dispatch("fetchRateCurrencies", {
+        base: this.currencyBase,
+        currenciesName: newDefaultCurrencies,
       });
     },
   },
@@ -179,6 +203,16 @@ export default {
     background-color: $purple-color;
     border: 3px solid $purple-color;
     font-weight: 500;
+  }
+
+  .primary-button[disabled] {
+    border-color: $disabled-color;
+    background-color: $secondary-color;
+  }
+
+  .primary-button[disabled]:hover {
+    border-color: $disabled-color;
+    background-color: $secondary-color;
   }
 
   .primary-button:hover {

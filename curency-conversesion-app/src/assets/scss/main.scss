@@ -57,6 +57,19 @@ h1 {
   color: $primary-color;
 }
 
+.primary-button[disabled] {
+  color: $disabled-color;
+  border-color: $disabled-color;
+  background-color: $secondary-color;
+  cursor: not-allowed;
+}
+
+.primary-button[disabled]:hover {
+  color: $disabled-color;
+  border-color: $disabled-color;
+  background-color: $secondary-color;
+}
+
 .input-value {
   padding: 10px;
   border: 1px;
