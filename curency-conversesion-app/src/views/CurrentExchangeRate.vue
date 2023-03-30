@@ -34,13 +34,15 @@
         <template v-else>
           <div class="rate-container">
             <table class="rate-table">
-              <tr
-                v-for="(entry, index) in Object.entries(rateCurrenciesRatios)"
-                :key="entry[0] + index"
-              >
-                <td>{{ entry[0] }}</td>
-                <td>{{ entry[1].toFixed(2) }}</td>
-              </tr>
+              <template v-if="rateCurrenciesRatios">
+                <tr
+                  v-for="(entry, index) in Object.entries(rateCurrenciesRatios)"
+                  :key="entry[0] + index"
+                >
+                  <td>{{ entry[0] }}</td>
+                  <td>{{ entry[1].toFixed(2) }}</td>
+                </tr>
+              </template>
             </table>
           </div>
           <div>
