@@ -30,7 +30,7 @@ export default {};
 
 .popup-container {
   background-color: white;
-  padding: 20px;
+  padding: 2rem;
   border-radius: 4px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   max-width: 80%;

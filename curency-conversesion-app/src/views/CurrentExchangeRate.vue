@@ -15,9 +15,9 @@
         <div class="select-group">
           <label>Choose curency:</label>
           <select class="selecet-base-currency" v-model="currencyBase">
-            <option>USD</option>
-            <option>EUR</option>
-            <option>UAH</option>
+            <option>usd</option>
+            <option>eur</option>
+            <option>uah</option>
           </select>
         </div>
         <template v-if="israteCurrenciesLoading && !errorMessage">
@@ -30,7 +30,7 @@
                 v-for="(entry, index) in Object.entries(rateCurrenciesRatios)"
                 :key="entry[0] + index"
               >
-                <td>{{ entry[0].toUpperCase() }}</td>
+                <td>{{ entry[0] }}</td>
                 <td>{{ entry[1].toFixed(2) }}</td>
               </tr>
             </table>
@@ -39,14 +39,8 @@
             <button @click="showPopup = true" class="primary-button">
               Add currency
             </button>
-            <pop-up-component
-              v-if="showPopup"
-              @close="showPopup = false"
-              title="Contact Us"
-            >
-              <add-new-currency-form
-                @submit="handleSubmit"
-              ></add-new-currency-form>
+            <pop-up-component v-if="showPopup" @close="showPopup = false">
+              <add-new-currency-form></add-new-currency-form>
             </pop-up-component>
           </div>
         </template>
@@ -67,8 +61,8 @@ export default {
   },
   data() {
     return {
-      defaultCurrencies: ["USD", "EUR", "UAH", "BTC", "ETH"],
-      currencyBase: "USD",
+      defaultCurrencies: ["usd", "eur", "uah", "btc", "eth"],
+      currencyBase: "usd",
       showPopup: false,
     };
   },
@@ -144,6 +138,7 @@ export default {
       border: 1px solid $primary-color;
       background-color: $primary-color;
       text-align: center;
+      text-transform: uppercase;
       color: $white-color;
     }
   }
@@ -153,6 +148,7 @@ export default {
   margin: 2rem auto;
   border-collapse: collapse;
   font-size: 1.2rem;
+  text-transform: uppercase;
 
   td {
     padding: 1rem;
@@ -171,6 +167,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  h1 {
+    text-transform: uppercase;
+  }
 
   .primary-button {
     padding: 0.2rem;

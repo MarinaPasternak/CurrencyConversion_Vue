@@ -56,3 +56,10 @@ h1 {
   background-color: $white-color;
   color: $primary-color;
 }
+
+.input-value {
+  padding: 10px;
+  border: 1px;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+}

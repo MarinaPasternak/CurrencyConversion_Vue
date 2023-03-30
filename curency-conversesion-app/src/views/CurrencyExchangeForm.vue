@@ -61,17 +61,17 @@ export default {
   data() {
     return {
       defaultCurrensies: [
-        "USD",
-        "EUR",
-        "UAH",
-        "GBP",
-        "BTC",
-        "ETH",
-        "BNB",
-        "XRP",
+        "usd",
+        "eur",
+        "uah",
+        "gbp",
+        "btc",
+        "eth",
+        "bnb",
+        "xpr",
       ],
-      currencyBase: "USD",
-      currencyToConvert: "BTC",
+      currencyBase: "usd",
+      currencyToConvert: "btc",
       amountToConvert: "1.00",
       limitInUSD: 10000,
       validationMessage: "",
@@ -88,13 +88,10 @@ export default {
       errorMessage: (state) => state.ratioCoefficient.ratioCoefficientError,
     }),
     convertedAmount() {
-      const baseValue = this.currencyBase.toLowerCase();
-      const convertToValue = this.currencyToConvert.toLowerCase();
-
       if (this.amountToConvert.length > 0) {
         this.fetchRatioCoefficient({
-          base: baseValue,
-          convertToCurrency: convertToValue,
+          base: this.currencyBase,
+          convertToCurrency: this.currencyToConvert,
         });
 
         if (
@@ -148,13 +145,6 @@ export default {
     color: $error-color;
   }
 
-  .input-value {
-    padding: 10px;
-    border: 1px;
-    border: 1px solid $primary-color;
-    border-radius: 5px;
-  }
-
   .container {
     margin-bottom: 2rem;
     justify-content: space-between;
@@ -175,6 +165,7 @@ export default {
       border: 1px solid $primary-color;
       background-color: $primary-color;
       color: $white-color;
+      text-transform: uppercase;
     }
   }
 

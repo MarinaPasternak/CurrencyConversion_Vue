@@ -18,19 +18,16 @@ export default {
     actions: {
         async fetchRateCurrencies({ commit }, { base, currensiesName }) {
             commit('setRateCurrenciesLoading', true);
-
-            const currensiesNameLowerCase = currensiesName.map((item) => item.toLowerCase());
-            const baseLowerCase = base.toLowerCase();
             
-            await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${baseLowerCase}.json`)
+            await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${base}.json`)
             .then(response => response.json())
             .then(data => {
                 commit('setRateCurrenciesLoading', false);
 
-                const filteredData = Object.keys(data[baseLowerCase])
-                .filter(currency => currensiesNameLowerCase.includes(currency))
+                const filteredData = Object.keys(data[base])
+                .filter(currency => currensiesName.includes(currency))
                 .reduce((obj, key) => {
-                  obj[key] = data[baseLowerCase][key];
+                  obj[key] = data[base][key];
                   return obj;
                 }, {});
 
