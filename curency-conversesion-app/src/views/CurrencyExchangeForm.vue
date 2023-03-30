@@ -3,8 +3,10 @@
     <div class="currency-exchange-form">
       <h1>Currency Converter</h1>
       <template v-if="errorMessage">
-        <h4>Oops, somthing went wrong</h4>
-        <p>{{ errorMessage }}</p>
+        <div class="error-message-container">
+          <h3>Oops, somthing went wrong</h3>
+          <h4>{{ errorMessage }}</h4>
+        </div>
       </template>
       <template v-else>
         <div class="container">

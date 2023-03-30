@@ -12,7 +12,7 @@ export default {
             state.currenciesNamesLoading= loading;
         },
         setCurrenciesNamesError(state, error) {
-            state.currenciesNamesError = error;
+            state.currenciesNameError = error;
         }
     },
     actions: {

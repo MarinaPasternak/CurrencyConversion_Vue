@@ -3,8 +3,10 @@
     <div class="currency-exchange-rate">
       <template v-if="errorMessage">
         <div class="validation-error-message">
-          <h3>Oops, somthing went wrong</h3>
-          <h4>{{ errorMessage }}</h4>
+          <div class="error-message-container">
+            <h3>Oops, somthing went wrong</h3>
+            <h4>{{ errorMessage }}</h4>
+          </div>
         </div>
       </template>
       <template v-else>
@@ -206,11 +208,13 @@ export default {
   }
 
   .primary-button[disabled] {
+    color: $disabled-color;
     border-color: $disabled-color;
     background-color: $secondary-color;
   }
 
   .primary-button[disabled]:hover {
+    color: $disabled-color;
     border-color: $disabled-color;
     background-color: $secondary-color;
   }
