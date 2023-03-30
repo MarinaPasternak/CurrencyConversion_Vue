@@ -35,7 +35,20 @@
               </tr>
             </table>
           </div>
-          <button class="primary-button">Add currency</button>
+          <div>
+            <button @click="showPopup = true" class="primary-button">
+              Add currency
+            </button>
+            <pop-up-component
+              v-if="showPopup"
+              @close="showPopup = false"
+              title="Contact Us"
+            >
+              <add-new-currency-form
+                @submit="handleSubmit"
+              ></add-new-currency-form>
+            </pop-up-component>
+          </div>
         </template>
       </template>
     </div>
@@ -44,11 +57,19 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import PopUpComponent from "../components/PopUpComponent.vue";
+import AddNewCurrencyForm from "./AddNewCurrencyForm.vue";
+
 export default {
+  components: {
+    AddNewCurrencyForm,
+    PopUpComponent,
+  },
   data() {
     return {
       defaultCurrencies: ["USD", "EUR", "UAH", "BTC", "ETH"],
       currencyBase: "USD",
+      showPopup: false,
     };
   },
   computed: {
