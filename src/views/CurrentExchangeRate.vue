@@ -142,7 +142,7 @@ export default {
 .currency-exchange-rate {
   width: 40%;
   height: auto;
-  padding: 2rem;
+  padding: 1rem;
   background-color: $white-color;
   border-radius: 5px;
 

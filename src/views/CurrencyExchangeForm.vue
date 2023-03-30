@@ -135,7 +135,7 @@ export default {
 .currency-exchange-form {
   width: 40%;
   height: auto;
-  padding: 2rem;
+  padding: 1rem;
   background-color: $white-color;
   border-radius: 5px;
 
