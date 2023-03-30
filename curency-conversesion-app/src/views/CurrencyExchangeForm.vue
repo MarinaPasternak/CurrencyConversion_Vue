@@ -18,7 +18,7 @@
               />
               <select v-model="currencyBase">
                 <option
-                  v-for="(currency, index) in defaultCurrensies"
+                  v-for="(currency, index) in defaultCurrencies"
                   :key="currency + index"
                 >
                   {{ currency }}
@@ -37,7 +37,7 @@
               />
               <select v-model="currencyToConvert">
                 <option
-                  v-for="(currency, index) in defaultCurrensies"
+                  v-for="(currency, index) in defaultCurrencies"
                   :key="currency + index + '-'"
                 >
                   {{ currency }}
@@ -60,7 +60,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      defaultCurrensies: [
+      defaultCurrencies: [
         "usd",
         "eur",
         "uah",

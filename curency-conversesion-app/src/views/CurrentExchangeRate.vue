@@ -20,7 +20,7 @@
             <option>uah</option>
           </select>
         </div>
-        <template v-if="israteCurrenciesLoading && !errorMessage">
+        <template v-if="isRateCurrenciesLoading && !errorMessage">
           <h3>Loadinig...</h3>
         </template>
         <template v-else>
@@ -69,7 +69,7 @@ export default {
   computed: {
     ...mapState({
       rateCurrenciesRatios: (state) => state.rateCurrencies.rateCurrencies,
-      israteCurrenciesLoading: (state) =>
+      isRateCurrenciesLoading: (state) =>
         state.rateCurrencies.rateCurrenciesLoading,
       errorMessage: (state) => state.rateCurrencies.rateCurrenciesError,
     }),
@@ -94,14 +94,14 @@ export default {
 
     this.fetchRateCurrencies({
       base: this.currencyBase,
-      currensiesName: this.defaultCurrencies,
+      currenciesName: this.defaultCurrencies,
     });
   },
   watch: {
     currencyBase: function (newBase, oldBase) {
       this.$store.dispatch("fetchRateCurrencies", {
         base: newBase,
-        currensiesName: this.defaultCurrencies,
+        currenciesName: this.defaultCurrencies,
       });
     },
   },

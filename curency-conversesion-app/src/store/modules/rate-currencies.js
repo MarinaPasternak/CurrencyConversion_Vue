@@ -16,7 +16,7 @@ export default {
         }
     },
     actions: {
-        async fetchRateCurrencies({ commit }, { base, currensiesName }) {
+        async fetchRateCurrencies({ commit }, { base, currenciesName }) {
             commit('setRateCurrenciesLoading', true);
             
             await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${base}.json`)
@@ -25,7 +25,7 @@ export default {
                 commit('setRateCurrenciesLoading', false);
 
                 const filteredData = Object.keys(data[base])
-                .filter(currency => currensiesName.includes(currency))
+                .filter(currency => currenciesName.includes(currency))
                 .reduce((obj, key) => {
                   obj[key] = data[base][key];
                   return obj;
