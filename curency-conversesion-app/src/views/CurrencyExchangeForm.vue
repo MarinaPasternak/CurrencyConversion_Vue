@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/scss/main.scss";
+@import "../assets/scss/main.scss";
 
 .currency-exchange-form {
   width: 40%;
@@ -148,16 +148,11 @@ export default {
     color: $error-color;
   }
 
-  .input-value,
-  .input-amount {
+  .input-value {
     padding: 10px;
     border: 1px;
     border: 1px solid $primary-color;
     border-radius: 5px;
-  }
-
-  .input-amount {
-    width: 200px;
   }
 
   .container {
@@ -169,9 +164,6 @@ export default {
     }
   }
 
-  .primary-button {
-    width: 100%;
-  }
   .select-container {
     .input-value {
       margin-right: -10px;

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import CurrencyExchangeForm from "./views/currency-exchange/CurrencyExchangeForm.vue";
+import CurrencyExchangeForm from "./views/CurrencyExchangeForm.vue";
 import CurrentExchangeRate from "./views/CurrentExchangeRate.vue";
 export default {
   components: {
