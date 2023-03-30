@@ -1,39 +1,26 @@
 <template>
   <div class="container">
     <div class="currency-exchange-rate">
-      <h1>USD</h1>
+      <div class="container-header">
+        <h1>{{ currencyBase }}</h1>
+        <button class="primary-button">Update rate</button>
+      </div>
       <div class="select-group">
         <label>Choose curency:</label>
-        <select class="selecet-base-currency">
-          <option
-            v-for="(currency, index) in defaultCurrensies"
-            :key="currency + index"
-          >
-            {{ currency }}
-          </option>
+        <select class="selecet-base-currency" v-model="currencyBase">
+          <option>USD</option>
+          <option>EUR</option>
+          <option>UAH</option>
         </select>
       </div>
       <div class="rate-container">
         <table class="rate-table">
-          <tr>
-            <td>USD</td>
+          <tr
+            v-for="(currency, index) in defaultCurrensies"
+            :key="currency + index"
+          >
+            <td>{{ currency }}</td>
             <td>1</td>
-          </tr>
-          <tr>
-            <td>UAH</td>
-            <td>43</td>
-          </tr>
-          <tr>
-            <td>UAH</td>
-            <td>43</td>
-          </tr>
-          <tr>
-            <td>UAH</td>
-            <td>43</td>
-          </tr>
-          <tr>
-            <td>UAH</td>
-            <td>43</td>
           </tr>
         </table>
       </div>
@@ -47,7 +34,25 @@ export default {
   data() {
     return {
       defaultCurrensies: ["USD", "EUR", "UAH", "BTC", "ETH"],
+      currencyBase: "USD",
     };
+  },
+  methods: {
+    getCurrencyRateArray() {
+      if (localStorage.getItem("defaultCurrencies") === null) {
+        localStorage.setItem(
+          "defaultCurrencies",
+          JSON.stringify(this.defaultCurrencies)
+        );
+      } else {
+        this.defaultCurrencies = JSON.parse(
+          localStorage.getItem("defaultCurrencies")
+        );
+      }
+    },
+  },
+  mounted() {
+    this.getCurrencyRateArray();
   },
 };
 </script>
@@ -98,6 +103,26 @@ export default {
 
   tr {
     border-bottom: 2px solid $purple-color;
+  }
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .primary-button {
+    padding: 0.2rem;
+    width: fit-content;
+    height: fit-content;
+    background-color: $purple-color;
+    border: 3px solid $purple-color;
+    font-weight: 500;
+  }
+
+  .primary-button:hover {
+    background-color: $white-color;
+    color: $purple-color;
   }
 }
 </style>
