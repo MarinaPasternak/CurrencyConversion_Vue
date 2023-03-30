@@ -1,43 +1,66 @@
 <template>
   <div class="container">
     <div class="currency-exchange-rate">
-      <div class="container-header">
-        <h1>{{ currencyBase }}</h1>
-        <button class="primary-button">Update rate</button>
-      </div>
-      <div class="select-group">
-        <label>Choose curency:</label>
-        <select class="selecet-base-currency" v-model="currencyBase">
-          <option>USD</option>
-          <option>EUR</option>
-          <option>UAH</option>
-        </select>
-      </div>
-      <div class="rate-container">
-        <table class="rate-table">
-          <tr
-            v-for="(currency, index) in defaultCurrensies"
-            :key="currency + index"
-          >
-            <td>{{ currency }}</td>
-            <td>1</td>
-          </tr>
-        </table>
-      </div>
-      <button class="primary-button">Add currency</button>
+      <template v-if="errorMessage">
+        <div class="validation-error-message">
+          <h3>Oops, somthing went wrong</h3>
+          <h4>{{ errorMessage }}</h4>
+        </div>
+      </template>
+      <template v-else>
+        <div class="container-header">
+          <h1>{{ currencyBase }}</h1>
+          <button class="primary-button">Update rate</button>
+        </div>
+        <div class="select-group">
+          <label>Choose curency:</label>
+          <select class="selecet-base-currency" v-model="currencyBase">
+            <option>USD</option>
+            <option>EUR</option>
+            <option>UAH</option>
+          </select>
+        </div>
+        <template v-if="israteCurrenciesLoading && !errorMessage">
+          <h3>Loadinig...</h3>
+        </template>
+        <template v-else>
+          <div class="rate-container">
+            <table class="rate-table">
+              <tr
+                v-for="(entry, index) in Object.entries(rateCurrenciesRatios)"
+                :key="entry[0] + index"
+              >
+                <td>{{ entry[0].toUpperCase() }}</td>
+                <td>{{ entry[1].toFixed(2) }}</td>
+              </tr>
+            </table>
+          </div>
+          <button class="primary-button">Add currency</button>
+        </template>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      defaultCurrensies: ["USD", "EUR", "UAH", "BTC", "ETH"],
+      defaultCurrencies: ["USD", "EUR", "UAH", "BTC", "ETH"],
       currencyBase: "USD",
     };
   },
+  computed: {
+    ...mapState({
+      rateCurrenciesRatios: (state) => state.rateCurrencies.rateCurrencies,
+      israteCurrenciesLoading: (state) =>
+        state.rateCurrencies.rateCurrenciesLoading,
+      errorMessage: (state) => state.rateCurrencies.rateCurrenciesError,
+    }),
+  },
   methods: {
+    ...mapActions(["fetchRateCurrencies"]),
     getCurrencyRateArray() {
       if (localStorage.getItem("defaultCurrencies") === null) {
         localStorage.setItem(
@@ -53,6 +76,19 @@ export default {
   },
   mounted() {
     this.getCurrencyRateArray();
+
+    this.fetchRateCurrencies({
+      base: this.currencyBase,
+      currensiesName: this.defaultCurrencies,
+    });
+  },
+  watch: {
+    currencyBase: function (newBase, oldBase) {
+      this.$store.dispatch("fetchRateCurrencies", {
+        base: newBase,
+        currensiesName: this.defaultCurrencies,
+      });
+    },
   },
 };
 </script>
@@ -66,6 +102,10 @@ export default {
   padding: 2rem;
   background-color: $white-color;
   border-radius: 5px;
+
+  .validation-error-message h4 {
+    color: $error-color;
+  }
 
   .primary-button {
     width: 100%;
