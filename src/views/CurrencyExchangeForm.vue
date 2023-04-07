@@ -106,10 +106,16 @@ export default {
             this.isAmountToConvertLessThenLimit
           ) {
             this.validationMessage = "";
-
-            return (
-              this.ratioCoefficientForConverting * this.amountToConvert
-            ).toFixed(2);
+            if (
+              this.currencyToConvert === "btc" ||
+              this.currencyToConvert === "eth"
+            ) {
+              return this.ratioCoefficientForConverting * this.amountToConvert;
+            } else {
+              return (
+                this.ratioCoefficientForConverting * this.amountToConvert
+              ).toFixed(2);
+            }
           } else {
             this.validationMessage = `Sorry, you have riched limit in ${this.limitInUSD} USD`;
             return "";

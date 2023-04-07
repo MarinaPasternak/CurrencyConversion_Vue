@@ -40,7 +40,12 @@
                   :key="entry[0] + index"
                 >
                   <td>{{ entry[0] }}</td>
-                  <td>{{ entry[1].toFixed(2) }}</td>
+                  <template v-if="entry[0] === 'btc' || entry[0] === 'eth'"
+                    ><td>{{ entry[1] }}</td>
+                  </template>
+                  <template v-else
+                    ><td>{{ entry[1].toFixed(2) }}</td>
+                  </template>
                 </tr>
               </template>
             </table>
