@@ -90,23 +90,32 @@ export default {
       errorMessage: (state) => state.ratioCoefficient.ratioCoefficientError,
     }),
     convertedAmount() {
+      const isAmountToConvertNumeric = this.checkIfAmountToConvertNumeric(
+        this.amountToConvert
+      );
+
       if (this.amountToConvert.length > 0) {
         this.fetchRatioCoefficient({
           base: this.currencyBase,
           convertToCurrency: this.currencyToConvert,
         });
 
-        if (
-          this.ratioCoefficientForConverting &&
-          this.isAmountToConvertLessThenLimit
-        ) {
-          this.validationMessage = "";
+        if (isAmountToConvertNumeric) {
+          if (
+            this.ratioCoefficientForConverting &&
+            this.isAmountToConvertLessThenLimit
+          ) {
+            this.validationMessage = "";
 
-          return (
-            this.ratioCoefficientForConverting * this.amountToConvert
-          ).toFixed(2);
+            return (
+              this.ratioCoefficientForConverting * this.amountToConvert
+            ).toFixed(2);
+          } else {
+            this.validationMessage = `Sorry, you have riched limit in ${this.limitInUSD} USD`;
+            return "";
+          }
         } else {
-          this.validationMessage = `Sorry, you have riched limit in ${this.limitInUSD} USD`;
+          this.validationMessage = `Sorry, it's not a number`;
           return "";
         }
       } else {
@@ -125,6 +134,9 @@ export default {
   },
   methods: {
     ...mapActions(["fetchRatioCoefficient"]),
+    checkIfAmountToConvertNumeric(amount) {
+      return !isNaN(parseFloat(amount)) && isFinite(amount);
+    },
   },
 };
 </script>
