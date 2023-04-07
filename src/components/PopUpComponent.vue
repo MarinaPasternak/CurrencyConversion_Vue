@@ -57,4 +57,10 @@ export default {};
 .popup-body {
   flex: 1;
 }
+
+@media (max-width: 480px) {
+  .popup-container {
+    width: 80%;
+  }
+}
 </style>

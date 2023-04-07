@@ -207,4 +207,21 @@ export default {
     }
   }
 }
+
+@media (max-width: 1250px) {
+  .currency-exchange-form .container {
+    flex-direction: column;
+
+    .column-container:first-child {
+      margin: 0;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .currency-exchange-form {
+    width: 100%;
+  }
+}
 </style>

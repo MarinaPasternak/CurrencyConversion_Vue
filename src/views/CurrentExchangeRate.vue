@@ -231,4 +231,10 @@ export default {
     color: $purple-color;
   }
 }
+
+@media (max-width: 480px) {
+  .currency-exchange-rate {
+    width: 100%;
+  }
+}
 </style>
