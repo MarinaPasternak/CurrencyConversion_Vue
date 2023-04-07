@@ -110,7 +110,9 @@ export default {
               this.currencyToConvert === "btc" ||
               this.currencyToConvert === "eth"
             ) {
-              return this.ratioCoefficientForConverting * this.amountToConvert;
+              return (
+                this.ratioCoefficientForConverting * this.amountToConvert
+              ).toFixed(6);
             } else {
               return (
                 this.ratioCoefficientForConverting * this.amountToConvert

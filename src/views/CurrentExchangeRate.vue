@@ -41,7 +41,7 @@
                 >
                   <td>{{ entry[0] }}</td>
                   <template v-if="entry[0] === 'btc' || entry[0] === 'eth'"
-                    ><td>{{ entry[1] }}</td>
+                    ><td>{{ entry[1].toFixed(6) }}</td>
                   </template>
                   <template v-else
                     ><td>{{ entry[1].toFixed(2) }}</td>
